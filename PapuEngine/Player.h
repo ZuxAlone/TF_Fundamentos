@@ -9,11 +9,17 @@ class Player: public Human
 private:
 	InputManager* _inputManager;
 	int _currentGun;
+	float _sprint;
+	float _walk;
+	bool _hasKey;
 	Camera2D* _camera;
 public:
 	Player();
 	~Player();
-	void init(float speed, glm::vec2 position, InputManager* inputManager, Camera2D* camera);
+
+	bool hasKey() const { return _hasKey; }
+
+	void init(float speed, glm::vec2 position, InputManager* inputManager, Camera2D* camera, std::string texturePath);
 	void update(const std::vector<std::string>& levelData,
 		std::vector<Human*>& humans,
 		std::vector<Zombie*>& zombies );

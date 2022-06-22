@@ -68,6 +68,16 @@ void Level::parseLevel() {
 				_levelData[y][x] = '.';
 				_zombiesPosition.emplace_back(x*TILE_WIDTH, y*TILE_WIDTH);
 				break;
+			case 'K':
+				_levelData[y][x] = '.';
+				_keyPosition.x = x * TILE_WIDTH;
+				_keyPosition.y = y * TILE_WIDTH;
+				break;
+			case 'D':
+				_levelData[y][x] = '.';
+				_doorPosition.x = x * TILE_WIDTH;
+				_doorPosition.y = y * TILE_WIDTH;
+				break;
 			case '.':
 				break;
 			default:

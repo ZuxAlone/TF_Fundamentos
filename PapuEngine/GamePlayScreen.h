@@ -7,11 +7,14 @@
 #include "Window.h"
 #include "GLTexture.h"
 #include "SpriteBacth.h"
+#include "SpriteFont.h"
 #include "Level.h"
 #include "Zombie.h"
 #include "Player.h"
 #include "Human.h"
 #include "Background.h"
+#include "Key.h"
+#include "Door.h"
 
 class GamePlayScreen : public IGameScreen
 {
@@ -22,11 +25,14 @@ private:
 	SpriteBacth _spriteBatch;
 	GLTexture _texture;
 	InputManager _inputManager;
+	SpriteFont* _spriteFont;
 	vector<Level*> _levels;
 	vector<Human*>  _humans;
 	vector<Zombie*> _zombies;
 	Background* background;
 	Player* _player;
+	Key* _key;
+	Door* _door;
 	int _currenLevel;
 	void updateAgents();
 
@@ -44,5 +50,6 @@ public:
 	virtual int getPreviousScreen() const override;
 
 	void checkInput();
+	void drawUI();
 };
 

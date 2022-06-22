@@ -13,6 +13,8 @@ private:
 	vector<string> _levelData;
 	int _numHumans;
 	void parseLevel();
+	glm::vec2 _keyPosition;
+	glm::vec2 _doorPosition;
 public:
 
 	int getNumHumans() const {
@@ -36,6 +38,14 @@ public:
 	std::vector<glm::vec2> getZombiesPosition()const {
 		return _zombiesPosition;
 	};
+
+	glm::vec2 getKeyPosition() const {
+		return _keyPosition;
+	}
+	
+	glm::vec2 getDoorPosition() const {
+		return _doorPosition;
+	}
 
 	Level(const std::string& fileName);
 	void draw();

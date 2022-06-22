@@ -30,7 +30,7 @@ int Window::create(string windowName, int screenWidth, int screenHeight, unsigne
 		flags |= SDL_WINDOW_BORDERLESS;
 	}
 
-	_window = SDL_CreateWindow("Papu engine", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, screenWidth, screenHeight, flags);
+	_window = SDL_CreateWindow(windowName.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, screenWidth, screenHeight, flags);
 	if (_window == nullptr) {
 	}
 

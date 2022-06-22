@@ -6,9 +6,10 @@ Zombie::Zombie()
 {
 }
 
-void Zombie::init(float speed, glm::vec2 position) {
+void Zombie::init(float speed, glm::vec2 position, std::string texturePath) {
 	_speed = speed;
 	_position = position;
+	_texturePath = texturePath;
 	color.set(0, 255, 0, 255);
 }
 
@@ -18,11 +19,11 @@ void Zombie::update(const std::vector<std::string>& levelData,
 	collideWithLevel(levelData);
 
 	Human* closeHuman = getNearestHuman(humans);
-	if (closeHuman != nullptr) {
+	/*if (closeHuman != nullptr) {
 		glm::vec2 direction = glm::normalize(
 				closeHuman->getPosition() - _position);
 		_position += direction*_speed;
-	}
+	}*/
 }
 
 Human* Zombie::getNearestHuman(std::vector<Human*>& humans) {

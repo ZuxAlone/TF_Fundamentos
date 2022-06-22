@@ -25,7 +25,7 @@ void MainGame::initLevel() {
 	_levels.push_back(new Level("Levels/level1.txt"));
 	_player = new Player();
 	_currenLevel = 0;
-	_player->init(1.0f, _levels[_currenLevel]->getPlayerPosition(), &_inputManager,&_camera);
+	_player->init(1.0f, _levels[_currenLevel]->getPlayerPosition(), &_inputManager,&_camera, "Textures/circle.png");
 	_humans.push_back(_player);
 	_spriteBacth.init();
 
@@ -40,7 +40,7 @@ void MainGame::initLevel() {
 		_humans.push_back(new Human());
 		glm::vec2 pos(randPosX(randomEngine)*TILE_WIDTH, 
 							randPosY(randomEngine)*TILE_WIDTH);
-		_humans.back()->init(1.0f, pos);
+		_humans.back()->init(1.0f, pos, "Textures/circle.png");
 	}
 
 	const std::vector<glm::vec2>& zombiePosition =
@@ -49,7 +49,7 @@ void MainGame::initLevel() {
 	for (size_t i = 0; i < zombiePosition.size(); i++)
 	{
 		_zombies.push_back(new Zombie());
-		_zombies.back()->init(1.3f, zombiePosition[i]);
+		_zombies.back()->init(1.3f, zombiePosition[i], "Textures/circle.png");
 	}
 }
 
@@ -171,7 +171,7 @@ void MainGame::updateAgents() {
 		{
 			if (_zombies[i]->collideWithAgent(_humans[j])) {
 				_zombies.push_back(new Zombie);
-				_zombies.back()->init(1.3f, _humans[j]->getPosition());
+				_zombies.back()->init(1.3f, _humans[j]->getPosition(), "Textures/circle.png");
 
 				delete _humans[j];
 				_humans[j] = _humans.back();

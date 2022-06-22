@@ -9,7 +9,7 @@ protected:
 public:
 	Human();
 	~Human();
-	void init(float speed, glm::vec2 position);
+	void init(float speed, glm::vec2 position, std::string texturePath);
 
 	void update(const std::vector<std::string>& levelData,
 		std::vector<Human*>& humans,

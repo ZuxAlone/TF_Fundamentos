@@ -1,25 +1,25 @@
 #pragma once
-#include <GL\glew.h>
+#include <glm\glm.hpp>
 #include <string>
+#include "SpriteBacth.h"
 #include "GLTexture.h"
 
-using namespace std;
+const float SPRITE_WIDTH = 64.0f;
+const float SPRITE_RADIUS = SPRITE_WIDTH / 2.0f;
+
 class Sprite
 {
-private:
-	float _x;
-	float _y;
-	int _width;
-	int _height;
-	float vertexData;
-	GLuint _vobID;
-	GLTexture _texture;
+protected:
+	Color color;
+	glm::vec2 _position;
+	std::string _texturePath;
+
 public:
 	Sprite();
-	~Sprite();
-	void init(float x, float y, int width, int height, string texturePath);
-	void draw();
+	virtual ~Sprite();
 
-	
+	glm::vec2 getPosition() const { return _position; };
+
+	void draw(SpriteBacth& spritebatch);
 };
 

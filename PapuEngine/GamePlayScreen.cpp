@@ -23,8 +23,12 @@ GamePlayScreen::~GamePlayScreen()
 void GamePlayScreen::build() {
 	_levels.push_back(new Level("Levels/level1.txt"));
 	_player = new Player();
+	_key = new Key();
+	_door = new Door();
 	_currenLevel = 0;
-	_player->init(1.0f, _levels[_currenLevel]->getPlayerPosition(), &_inputManager, &_camera);
+	_player->init(1.0f, _levels[_currenLevel]->getPlayerPosition(), &_inputManager, &_camera, "Textures/circle.png");
+	_key->init(_levels[_currenLevel]->getKeyPosition(), "Textures/key.png");
+	_door->init(_levels[_currenLevel]->getDoorPosition(), "Textures/door.png");
 	_humans.push_back(_player);
 	_spriteBatch.init();
 
@@ -39,7 +43,7 @@ void GamePlayScreen::build() {
 		_humans.push_back(new Human());
 		glm::vec2 pos(randPosX(randomEngine) * TILE_WIDTH,
 			randPosY(randomEngine) * TILE_WIDTH);
-		_humans.back()->init(1.0f, pos);
+		_humans.back()->init(1.0f, pos, "Textures/circle.png");
 	}
 
 	const std::vector<glm::vec2>& zombiePosition =
@@ -48,7 +52,7 @@ void GamePlayScreen::build() {
 	for (size_t i = 0; i < zombiePosition.size(); i++)
 	{
 		_zombies.push_back(new Zombie());
-		_zombies.back()->init(1.3f, zombiePosition[i]);
+		_zombies.back()->init(1.3f, zombiePosition[i], "Textures/circle.png");
 	}
 	//background = new Background("Textures/Fondos/Menu.png");
 }
@@ -67,6 +71,7 @@ void GamePlayScreen::onEntry() {
 
 	_camera.init(_window->getScreenWidth(), _window->getScreenHeight());
 	_window->setGLColor(1.0f, 1.0f, 0.0f);
+	_spriteFont = new SpriteFont("Fonts/Fuente2.ttf", 35);
 }
 void GamePlayScreen::draw() {
 	glClearDepth(1.0);
@@ -74,15 +79,8 @@ void GamePlayScreen::draw() {
 	_program.use();
 
 	glActiveTexture(GL_TEXTURE0);
-	//glBindTexture(GL_TEXTURE_2D, _texture.id);
 
-	/*GLuint timeLocation =
-		_program.getUniformLocation("time");
-
-	glUniform1f(timeLocation,_time);*/
-
-	GLuint pLocation =
-		_program.getUniformLocation("P");
+	GLuint pLocation = _program.getUniformLocation("P");
 
 	glm::mat4 cameraMatrix = _camera.getCameraMatrix();
 	glUniformMatrix4fv(pLocation, 1, GL_FALSE, &(cameraMatrix[0][0]));
@@ -94,6 +92,9 @@ void GamePlayScreen::draw() {
 
 	_levels[_currenLevel]->draw();
 
+	_key->draw(_spriteBatch);
+	if (!_door->isOpen()) _door->draw(_spriteBatch);
+
 	for (size_t i = 0; i < _humans.size(); i++)
 	{
 		_humans[i]->draw(_spriteBatch);
@@ -104,7 +105,8 @@ void GamePlayScreen::draw() {
 	{
 		_zombies[i]->draw(_spriteBatch);
 	}
-	//background->draw(_spriteBatch);
+
+	drawUI();
 
 	_spriteBatch.end();
 	_spriteBatch.renderBatch();
@@ -113,6 +115,16 @@ void GamePlayScreen::draw() {
 	_program.unuse();
 	_window->swapBuffer();
 }
+
+void GamePlayScreen::drawUI() {
+	char buffer[256];
+	if (!_player->hasKey()) sprintf_s(buffer, "No tienes la llave!");
+	else sprintf_s(buffer, "Busca la salida!");
+	Color color;
+	color.set(0, 0, 0, 255);
+	_spriteFont->draw(_spriteBatch, buffer, _camera.getPosition() + glm::vec2(- _window->getScreenWidth() / 2.1, _window->getScreenHeight() / 2.5), glm::vec2(1), 0.0f, color);
+}
+
 void GamePlayScreen::update() {
 	checkInput();
 	draw();
@@ -121,7 +133,6 @@ void GamePlayScreen::update() {
 	_inputManager.update();
 	_camera.setPosition(_player->getPosition());
 }
-
 
 void GamePlayScreen::updateAgents() {
 
@@ -180,13 +191,6 @@ void GamePlayScreen::checkInput() {
 			_inputManager.releaseKey(event.button.button);
 			break;
 		}
-		if (_inputManager.isKeyDown(SDLK_q)) {
-			_camera.setScale(_camera.getScale() + SCALE_SPEED);
-		}
-		if (_inputManager.isKeyDown(SDLK_e)) {
-			_camera.setScale(_camera.getScale() - SCALE_SPEED);
-		}
-
 	}
 }
 
