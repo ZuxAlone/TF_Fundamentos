@@ -47,6 +47,10 @@ public:
 		return _doorPosition;
 	}
 
+	void setDot(glm::vec2 pos) {
+		_levelData[pos.y / TILE_WIDTH][pos.x / TILE_WIDTH] = '.';
+	}
+
 	Level(const std::string& fileName);
 	void draw();
 	SpriteBacth _spriteBatch;

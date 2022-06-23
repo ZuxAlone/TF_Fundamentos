@@ -1,5 +1,6 @@
 #pragma once
 #include "Human.h"
+#include "Key.h"
 #include "InputManager.h"
 #include <vector>
 #include "Camera2D.h"
@@ -18,6 +19,9 @@ public:
 	~Player();
 
 	bool hasKey() const { return _hasKey; }
+	void getKey() { _hasKey = true; }
+
+	bool collideWithKey(Key* key);
 
 	void init(float speed, glm::vec2 position, InputManager* inputManager, Camera2D* camera, std::string texturePath);
 	void update(const std::vector<std::string>& levelData,

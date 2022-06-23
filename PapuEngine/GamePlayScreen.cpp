@@ -92,7 +92,7 @@ void GamePlayScreen::draw() {
 
 	_levels[_currenLevel]->draw();
 
-	_key->draw(_spriteBatch);
+	if (!_player->hasKey()) _key->draw(_spriteBatch);
 	if (!_door->isOpen()) _door->draw(_spriteBatch);
 
 	for (size_t i = 0; i < _humans.size(); i++)
@@ -136,6 +136,14 @@ void GamePlayScreen::update() {
 
 void GamePlayScreen::updateAgents() {
 
+	if (!_player->hasKey()) {
+		if (_player->collideWithKey(_key)) {
+			_player->getKey();
+			_door->openDoor();
+			glm::vec2 doorPos = _door->getPosition();
+			_levels[_currenLevel]->setDot(doorPos);
+		}
+	}
 
 	for (size_t i = 0; i < _humans.size(); i++)
 	{

@@ -10,6 +10,7 @@ public:
 	~Door();
 
 	bool isOpen() const { return _isOpen; }
+	void openDoor() { _isOpen = true; }
 
 	void init(glm::vec2 position, std::string texturePath);
 };

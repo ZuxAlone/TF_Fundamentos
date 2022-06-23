@@ -74,7 +74,6 @@ void Level::parseLevel() {
 				_keyPosition.y = y * TILE_WIDTH;
 				break;
 			case 'D':
-				_levelData[y][x] = '.';
 				_doorPosition.x = x * TILE_WIDTH;
 				_doorPosition.y = y * TILE_WIDTH;
 				break;
