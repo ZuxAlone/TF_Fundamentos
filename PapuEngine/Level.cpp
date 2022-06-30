@@ -79,6 +79,13 @@ void Level::parseLevel() {
 				break;
 			case '.':
 				break;
+			case 'X':
+				_spriteBatch.draw(destRect, uvRect,
+					ResourceManager::getTexture("Textures/portal.png").id
+					, 0.0f, color);
+				_levelData[y][x] = '.';
+				_portalPosition.x = x * TILE_WIDTH;
+				_portalPosition.y = y * TILE_WIDTH;
 			default:
 				break;
 			}

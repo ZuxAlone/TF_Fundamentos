@@ -15,6 +15,7 @@
 #include "Background.h"
 #include "Key.h"
 #include "Door.h"
+#include "Portal.h"
 
 class GamePlayScreen : public IGameScreen
 {
@@ -33,6 +34,7 @@ private:
 	Player* _player;
 	Key* _key;
 	Door* _door;
+	Portal* _portal;
 	int _currenLevel;
 	void updateAgents();
 
@@ -40,6 +42,7 @@ public:
 	GamePlayScreen(Window* window);
 	~GamePlayScreen();
 
+	
 	virtual void build() override;
 	virtual void destroy() override;
 	virtual void onExit() override;

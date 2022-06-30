@@ -3,7 +3,9 @@
 #include "Key.h"
 #include "InputManager.h"
 #include <vector>
+#include "Door.h"
 #include "Camera2D.h"
+#include "Portal.h"
 
 class Player: public Human
 {
@@ -22,6 +24,8 @@ public:
 	void getKey() { _hasKey = true; }
 
 	bool collideWithKey(Key* key);
+
+	bool collideWithDoor(Portal* portal);
 
 	void init(float speed, glm::vec2 position, InputManager* inputManager, Camera2D* camera, std::string texturePath);
 	void update(const std::vector<std::string>& levelData,

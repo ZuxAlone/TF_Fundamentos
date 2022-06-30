@@ -140,6 +140,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="ScreenList.cpp" />
+    <ClCompile Include="Portal.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteBacth.cpp" />
     <ClCompile Include="SpriteFont.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="PapuEngine.h" />
     <ClInclude Include="picoPNG.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Portal.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="ScreenList.h" />
     <ClInclude Include="Sprite.h" />

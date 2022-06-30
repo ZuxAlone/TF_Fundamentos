@@ -15,6 +15,7 @@ private:
 	void parseLevel();
 	glm::vec2 _keyPosition;
 	glm::vec2 _doorPosition;
+	glm::vec2 _portalPosition;
 public:
 
 	int getNumHumans() const {
@@ -47,6 +48,10 @@ public:
 		return _doorPosition;
 	}
 
+	glm::vec2 getPortalPosition() const {
+		return _portalPosition;
+	}
+	
 	void setDot(glm::vec2 pos) {
 		_levelData[pos.y / TILE_WIDTH][pos.x / TILE_WIDTH] = '.';
 	}

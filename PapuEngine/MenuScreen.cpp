@@ -110,6 +110,7 @@ void MenuScreen::checkInput()
 		if (_inputManager.isKeyDown(SDLK_SPACE)) {
 			_currentState = ScreenState::CHANGE_NEXT;
 		}
+
 	}
 }
 

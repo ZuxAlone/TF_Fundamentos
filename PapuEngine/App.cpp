@@ -14,12 +14,16 @@ void App::addScreens() {
 		std::make_unique<GamePlayScreen>(&_window);
 	_menuScreen =
 		std::make_unique<MenuScreen>(&_window);
+	_gameplayScreen2 =
+		std::make_unique<GamePlayScreen>(&_window);
 	_screenList->addScreen(
-					_gamePlayScreen.get());
+		_gamePlayScreen.get());
 	_screenList->addScreen(
 		_menuScreen.get());
 	_screenList->setScreen(
 		_menuScreen->getIndex());
+	_screenList->addScreen(
+		_gameplayScreen2.get());
 }
 
 void App::onExit() {

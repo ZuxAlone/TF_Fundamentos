@@ -1,6 +1,5 @@
 #include "GamePlayScreen.h"
 #include "Game.h"
-
 #include "ImageLoader.h"
 #include <iostream>
 #include "ResourceManager.h"
@@ -12,6 +11,7 @@
 GamePlayScreen::GamePlayScreen(Window* window):
 	_window(window)
 {
+	_player = new Player();
 }
 
 
@@ -21,14 +21,23 @@ GamePlayScreen::~GamePlayScreen()
 
 
 void GamePlayScreen::build() {
-	_levels.push_back(new Level("Levels/level1.txt"));
-	_player = new Player();
+	switch (_currenLevel) {
+	case 0:
+		_levels.push_back(new Level("Levels/level1.txt"));
+	case 1:
+		_levels.push_back(new Level("Levels/level2.txt"));
+	case 2:
+		_levels.push_back(new Level("Levels/level1.txt"));
+	case 3:
+		_levels.push_back(new Level("Levels/level2.txt"));		
+	}
 	_key = new Key();
 	_door = new Door();
-	_currenLevel = 0;
+	_portal = new Portal();
 	_player->init(1.0f, _levels[_currenLevel]->getPlayerPosition(), &_inputManager, &_camera, "Textures/circle.png");
 	_key->init(_levels[_currenLevel]->getKeyPosition(), "Textures/key.png");
 	_door->init(_levels[_currenLevel]->getDoorPosition(), "Textures/door.png");
+	_portal->init(_levels[_currenLevel]->getPortalPosition(), "Textures/portal.png");
 	_humans.push_back(_player);
 	_spriteBatch.init();
 
@@ -143,6 +152,21 @@ void GamePlayScreen::updateAgents() {
 			glm::vec2 doorPos = _door->getPosition();
 			_levels[_currenLevel]->setDot(doorPos);
 		}
+	}
+
+	if (_player->hasKey()) {
+		if (_player->collideWithDoor(_portal)) {
+			if (_currenLevel < 2) {
+				_currenLevel += 1;
+
+				build();
+	
+			}
+			else {
+				_currentState = ScreenState::EXIT_APPLICATION;
+			}
+		}
+
 	}
 
 	for (size_t i = 0; i < _humans.size(); i++)

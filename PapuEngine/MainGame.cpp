@@ -22,7 +22,7 @@ void MainGame::init() {
 }
 
 void MainGame::initLevel() {
-	_levels.push_back(new Level("Levels/level1.txt"));
+	_levels.push_back(new Level("Levels/level2.txt"));
 	_player = new Player();
 	_currenLevel = 0;
 	_player->init(1.0f, _levels[_currenLevel]->getPlayerPosition(), &_inputManager,&_camera, "Textures/circle.png");

@@ -159,6 +159,9 @@
     <ClCompile Include="Door.cpp">
       <Filter>Source Files\Zombie\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Portal.cpp">
+      <Filter>Source Files\Zombie\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h">
@@ -252,6 +255,9 @@
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Door.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Portal.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>
