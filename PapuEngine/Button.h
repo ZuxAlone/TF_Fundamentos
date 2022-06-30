@@ -3,21 +3,22 @@
 #include <string>
 #include "SpriteBacth.h"
 #include "GLTexture.h"
-#include "Window.h"
 
-class Background
+class Button
 {
 private:
 	std::string path;
 	int _textureID;
+protected:
 	int width;
 	int height;
 	int x;
 	int y;
 public:
-
-	Background(std::string _path, Window* window);
-	~Background();
+	Button(std::string _path);
+	~Button();
+	void setSize(int width, int height);
+	void setPosition(int x, int y);
 	void draw(SpriteBacth& spriteBatch);
+	bool click(glm::vec2 position);
 };
-

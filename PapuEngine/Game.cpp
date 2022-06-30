@@ -49,6 +49,18 @@ void Game::run() {
 		draw();
 		_window.swapBuffer();
 	}
+	SDL_Event event;
+	while (SDL_PollEvent(&event)) {
+		if (event.type == SDL_WINDOWEVENT) {
+			switch (event.window.event) {
+			case SDL_WINDOWEVENT_CLOSE:   // exit game
+				this->exit();
+				exit();
+				break;
+			}
+			break;
+		}
+	}
 }
 
 void Game::exit() {

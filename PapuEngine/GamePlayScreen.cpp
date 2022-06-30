@@ -7,11 +7,12 @@
 #include "PapuEngine.h"
 #include <random>
 #include <ctime>
-
+#include "ScreenIndices.h"
 
 GamePlayScreen::GamePlayScreen(Window* window):
 	_window(window)
 {
+	_screenIndex = SCREEN_INDEX_GAMEPLAY;
 }
 
 
