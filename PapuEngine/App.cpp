@@ -6,18 +6,25 @@ App::App()
 {
 }
 
+
 void App::onInit() {
 
 }
 void App::addScreens() {
-	_gamePlayScreen = 
+	_gamePlayScreen =
 		std::make_unique<GamePlayScreen>(&_window);
 	_menuScreen =
 		std::make_unique<MenuScreen>(&_window);
-	_screenList->addScreen(
-					_gamePlayScreen.get());
+	_levelSelectorEditorScreen =
+		std::make_unique<LevelEditorSelectorScreen>(&_window);
+
 	_screenList->addScreen(
 		_menuScreen.get());
+	_screenList->addScreen(
+		_gamePlayScreen.get());
+	_screenList->addScreen(
+		_levelSelectorEditorScreen.get());
+
 	_screenList->setScreen(
 		_menuScreen->getIndex());
 }

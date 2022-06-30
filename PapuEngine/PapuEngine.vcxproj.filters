@@ -159,6 +159,15 @@
     <ClCompile Include="Door.cpp">
       <Filter>Source Files\Zombie\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Source Files\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonText.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelEditorSelectorScreen.cpp">
+      <Filter>Source Files\Plataformer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h">
@@ -253,6 +262,18 @@
     </ClInclude>
     <ClInclude Include="Door.h">
       <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenIndices.h">
+      <Filter>Header Files\Plataformer</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Header Files\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonText.h">
+      <Filter>Header Files\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelEditorSelectorScreen.h">
+      <Filter>Header Files\Plataformer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

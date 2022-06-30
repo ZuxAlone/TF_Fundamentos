@@ -1,10 +1,11 @@
 #include "MenuScreen.h"
+#include "ScreenIndices.h"
 #include <iostream>
 
 
 MenuScreen::MenuScreen(Window* window):_window(window)
 {
-	
+	_screenIndex = SCREEN_INDEX_MENU;
 }
 
 MenuScreen::~MenuScreen()
@@ -13,11 +14,17 @@ MenuScreen::~MenuScreen()
 
 void MenuScreen::build()
 {
-	background = new Background("Textures/Fondos/Menu.png");
+	//background = new Background("Textures/Fondos/Menu.png");
+	background = new Background("Textures/Fondos/splash.png",_window);
+	buttonLevel = new ButtonText("Textures/button_64x16.png", "Editar Niveles");
+	buttonLevel->setSize(256, 64);
+	buttonLevel->setPosition(-128, -32);
 }
 
 void MenuScreen::destroy()
 {
+	buttonLevel = nullptr;
+	background = nullptr;
 }
 
 void MenuScreen::onExit()
@@ -35,8 +42,8 @@ void MenuScreen::onEntry()
 	_spriteBatch.init();
 	_camera.init(_window->getScreenWidth(),
 		_window->getScreenHeight());
-	spriteFont = new SpriteFont("Fonts/Fuente2.ttf", 40);
-	
+	//spriteFont = new SpriteFont("Fonts/Fuente2.ttf", 40);
+	spriteFont = new SpriteFont("Fonts/VT323-Regular.ttf", 32);
 }
 
 void MenuScreen::draw()
@@ -59,6 +66,7 @@ void MenuScreen::draw()
 	_spriteBatch.begin();
 
 	background->draw(_spriteBatch);
+	buttonLevel->draw(_spriteBatch);
 	char buffer[256];
 	sprintf_s(buffer, "Presiona espacio para continuar...");
 	Color color;
@@ -106,19 +114,32 @@ void MenuScreen::checkInput()
 		case SDL_MOUSEBUTTONUP:
 			_inputManager.releaseKey(event.button.button);
 			break;
+		case SDL_MOUSEMOTION:
+			_inputManager.setMouseCoords(event.motion.x, event.motion.y);
+			break;
 		}
+
 		if (_inputManager.isKeyDown(SDLK_SPACE)) {
 			_currentState = ScreenState::CHANGE_NEXT;
+		}
+		if (_inputManager.isKeyPressed(SDL_BUTTON_LEFT)) {
+			//presione click;
+			glm::vec2 mouseCoords = _camera.convertScreenToWorl(_inputManager.getMouseCoords());
+			std::cout << "x" << mouseCoords.x << " | y " << mouseCoords.y << endl;
+			if (buttonLevel->click(mouseCoords)) {
+				nextScreen = NextScreen::LEVELEDITOR;
+				_currentState = ScreenState::CHANGE_NEXT;
+			}
 		}
 	}
 }
 
 int MenuScreen::getNextScreen() const
 {
-	return 0;
+	return nextScreen == NextScreen::LEVELEDITOR ? SCREEN_INDEX_LEVEL_EDITOR_SELECTOR : SCREEN_INDEX_GAMEPLAY;
 }
 
 int MenuScreen::getPreviousScreen() const
 {
-	return 0;
+	return SCREEN_INDEX_NO_INDEX;
 }

@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "GamePlayScreen.h"
 #include "MenuScreen.h"
+#include "LevelEditorSelectorScreen.h"
 
 class App : public Game
 {
@@ -17,5 +18,7 @@ private:
 					_gamePlayScreen = nullptr;
 	std::unique_ptr<MenuScreen>
 		_menuScreen = nullptr;
+	std::unique_ptr<LevelEditorSelectorScreen>
+		_levelSelectorEditorScreen = nullptr;
 };
 

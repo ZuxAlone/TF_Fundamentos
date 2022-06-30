@@ -72,6 +72,10 @@
     <IncludePath>$(SolutionDir)depts/include/;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)depts/lib/;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(SolutionDir)depts/include/;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>$(SolutionDir)depts/lib/;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -120,6 +124,8 @@
     <ClCompile Include="Agent.cpp" />
     <ClCompile Include="App.cpp" />
     <ClCompile Include="Background.cpp" />
+    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="ButtonText.cpp" />
     <ClCompile Include="Camera2D.cpp" />
     <ClCompile Include="Door.cpp" />
     <ClCompile Include="Error.cpp" />
@@ -132,6 +138,7 @@
     <ClCompile Include="IOManager.cpp" />
     <ClCompile Include="Key.cpp" />
     <ClCompile Include="Level.cpp" />
+    <ClCompile Include="LevelEditorSelectorScreen.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="MenuScreen.cpp" />
@@ -151,6 +158,8 @@
     <ClInclude Include="Agent.h" />
     <ClInclude Include="App.h" />
     <ClInclude Include="Background.h" />
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="ButtonText.h" />
     <ClInclude Include="Camera2D.h" />
     <ClInclude Include="Door.h" />
     <ClInclude Include="Error.h" />
@@ -165,12 +174,14 @@
     <ClInclude Include="IOManager.h" />
     <ClInclude Include="Key.h" />
     <ClInclude Include="Level.h" />
+    <ClInclude Include="LevelEditorSelectorScreen.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="MenuScreen.h" />
     <ClInclude Include="PapuEngine.h" />
     <ClInclude Include="picoPNG.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="ScreenIndices.h" />
     <ClInclude Include="ScreenList.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteBacth.h" />
