@@ -14,9 +14,8 @@ MenuScreen::~MenuScreen()
 
 void MenuScreen::build()
 {
-	//background = new Background("Textures/Fondos/Menu.png");
 	background = new Background("Textures/Fondos/splash.png",_window);
-	buttonLevel = new ButtonText("Textures/button_64x16.png", "Editar Niveles");
+	buttonLevel = new ButtonText("Textures/UI/button_64x16.png", "Editar Niveles");
 	buttonLevel->setSize(256, 64);
 	buttonLevel->setPosition(-128, -32);
 }

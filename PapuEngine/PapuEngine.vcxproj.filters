@@ -162,11 +162,11 @@
     <ClCompile Include="Button.cpp">
       <Filter>Source Files\Assets</Filter>
     </ClCompile>
-    <ClCompile Include="ButtonText.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="LevelEditorSelectorScreen.cpp">
       <Filter>Source Files\Plataformer</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonText.cpp">
+      <Filter>Source Files\Assets</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

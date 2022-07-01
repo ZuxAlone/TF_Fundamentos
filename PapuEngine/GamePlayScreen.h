@@ -16,6 +16,8 @@
 #include "Key.h"
 #include "Door.h"
 
+enum LevelState { WON, LOST, FINISHED, PLAYING, PAUSE };
+
 class GamePlayScreen : public IGameScreen
 {
 private:
@@ -33,6 +35,7 @@ private:
 	Player* _player;
 	Key* _key;
 	Door* _door;
+	LevelState levelState;
 	int _currenLevel;
 	void updateAgents();
 

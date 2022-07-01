@@ -13,6 +13,7 @@ protected:
 	Color color;
 	glm::vec2 _position;
 	std::string _texturePath;
+	glm::vec4 uvRect;
 
 public:
 	Sprite();
@@ -21,5 +22,6 @@ public:
 	glm::vec2 getPosition() const { return _position; };
 
 	void draw(SpriteBacth& spritebatch);
+	void setUvRect(GLfloat x, GLfloat y, GLfloat width, GLfloat height);
 };
 

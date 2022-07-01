@@ -15,6 +15,7 @@ private:
 	void parseLevel();
 	glm::vec2 _keyPosition;
 	glm::vec2 _doorPosition;
+	glm::vec2 _portalPosition;
 public:
 
 	int getNumHumans() const {

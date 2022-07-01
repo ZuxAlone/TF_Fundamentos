@@ -9,7 +9,7 @@ Human::Human()
 
 void Human::init(float speed, glm::vec2 position, std::string texturePath) {
 	_speed = speed;
-	color.set(185, 0, 0, 255);
+	color.set(255, 255, 255, 255); //185,0,0
 	_position = position;
 	_texturePath = texturePath;
 	static std::mt19937 randomEngine(time(nullptr));

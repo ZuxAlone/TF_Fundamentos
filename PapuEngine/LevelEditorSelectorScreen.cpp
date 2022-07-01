@@ -16,7 +16,7 @@ LevelEditorSelectorScreen::~LevelEditorSelectorScreen()
 void LevelEditorSelectorScreen::build()
 {
 	background = new Background("Textures/Fondos/ui_bg.png",_window);
-	backButton = new Button("Textures/button_32x16.png");
+	backButton = new Button("Textures/UI/button_32x16.png");
 }
 
 void LevelEditorSelectorScreen::destroy()
