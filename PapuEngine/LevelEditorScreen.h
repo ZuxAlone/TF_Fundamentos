@@ -6,13 +6,10 @@
 #include "Background.h"
 #include "SpriteFont.h"
 #include "Camera2D.h"
-#include "Button.h"
-#include "ButtonText.h"
 #include "InputManager.h"
-#include <vector>
+#include "ButtonText.h"
 
-//Pantalla para seleccionar el nivel a editar o crear nuevo nivel
-class LevelEditorSelectorScreen : public IGameScreen
+class LevelEditorScreen : public IGameScreen
 {
 protected:
 	int _screenIndex = 0;
@@ -21,19 +18,15 @@ private:
 	Window* _window = nullptr;
 	SpriteBacth _spriteBatch;
 	Background* background;
-	Button* backButton;
-	ButtonText* newLevelButton;
-	vector<ButtonText*> levelButtons;
-	vector<std::string> _levelFiles;
-	vector<std::string> _levelNames;
-	InputManager inputManager;
 	Camera2D _camera;
+	ButtonText* buttonLevel;
+	InputManager _inputManager;
 	void checkInput();
 	SpriteFont* spriteFont;
 	int nextScreen;
 public:
-	LevelEditorSelectorScreen(Window* window);
-	~LevelEditorSelectorScreen();
+	LevelEditorScreen(Window* window);
+	~LevelEditorScreen();
 	virtual void build() override;
 	virtual void destroy() override;
 	virtual void onExit() override;
@@ -42,5 +35,6 @@ public:
 	virtual void update()override;
 	virtual int getNextScreen() const override;
 	virtual int getPreviousScreen() const override;
+
 };
 

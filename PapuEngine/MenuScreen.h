@@ -9,8 +9,6 @@
 #include "InputManager.h"
 #include "ButtonText.h"
 
-enum NextScreen { PLAY, LEVELEDITOR };
-
 class MenuScreen : public IGameScreen
 {
 protected:
@@ -25,7 +23,7 @@ private:
 	InputManager _inputManager;
 	void checkInput(); 
 	SpriteFont* spriteFont;
-	NextScreen nextScreen;
+	int nextScreen;
 public:
 	MenuScreen(Window* window);
 	~MenuScreen();

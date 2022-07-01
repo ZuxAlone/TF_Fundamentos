@@ -8,6 +8,18 @@ width(100), height(100), x(0), y(0)
 	_textureID = ResourceManager::getTexture(path).id;
 }
 
+Button::Button(std::string _path, int x, int y) :path(_path),
+width(100), height(100), x(x), y(y)
+{
+	_textureID = ResourceManager::getTexture(path).id;
+}
+
+Button::Button(std::string _path, int x, int y, int width, int height) :path(_path),
+width(width), height(height), x(x), y(y)
+{
+	_textureID = ResourceManager::getTexture(path).id;
+}
+
 Button::~Button()
 {
 }

@@ -138,6 +138,8 @@
     <ClCompile Include="IOManager.cpp" />
     <ClCompile Include="Key.cpp" />
     <ClCompile Include="Level.cpp" />
+    <ClCompile Include="LevelEditorScreen.cpp" />
+    <ClCompile Include="LevelEditorNewScreen.cpp" />
     <ClCompile Include="LevelEditorSelectorScreen.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
@@ -174,6 +176,8 @@
     <ClInclude Include="IOManager.h" />
     <ClInclude Include="Key.h" />
     <ClInclude Include="Level.h" />
+    <ClInclude Include="LevelEditorScreen.h" />
+    <ClInclude Include="LevelEditorNewScreen.h" />
     <ClInclude Include="LevelEditorSelectorScreen.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="MenuScreen.h" />

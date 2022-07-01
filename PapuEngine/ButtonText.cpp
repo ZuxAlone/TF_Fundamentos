@@ -1,14 +1,27 @@
 #include "ButtonText.h"
 
-ButtonText::ButtonText(std::string _path, const char* text)
-	: Button(_path), text(text)
-{
-	textColor.r = 255;
-	textColor.g = 255;
-	textColor.b = 255;
-	textColor.a = 255;
+void ButtonText::start() {
+	textColor = { 255, 255, 255, 255 };
 	spriteFont = new SpriteFont("Fonts/VT323-Regular.ttf", 28);
 	this->setTextPosition();
+}
+
+ButtonText::ButtonText(std::string _path, const char* text) :
+	Button(_path), text(text)
+{
+	start();
+}
+
+ButtonText::ButtonText(std::string _path, const char* text, int x, int y) :
+	Button(_path, x, y), text(text)
+{
+	start();
+}
+
+ButtonText::ButtonText(std::string _path, const char* text, int x, int y, int width, int height) :
+	Button(_path, x, y, width, height), text(text)
+{
+	start();
 }
 
 ButtonText::~ButtonText()
@@ -18,10 +31,10 @@ ButtonText::~ButtonText()
 void ButtonText::draw(SpriteBacth& spriteBatch)
 {
 	Button::draw(spriteBatch);
-	char buffer[256];
-	sprintf_s(buffer, this->text, 100);
+	//char buffer[256];
+	//sprintf_s(buffer, this->text, 100);
 	//2nd es posicion
-	spriteFont->draw(spriteBatch, buffer, textPosition, glm::vec2(1), 0.0f, textColor);
+	spriteFont->draw(spriteBatch, text, textPosition, glm::vec2(1), 0.0f, textColor);
 }
 
 void ButtonText::setTextColor(GLubyte r, GLubyte g, GLubyte b)

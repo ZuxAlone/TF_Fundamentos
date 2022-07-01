@@ -1,12 +1,29 @@
 #include "LevelEditorSelectorScreen.h"
 #include "ScreenIndices.h"
 #include <iostream>
+#include <fstream>
+#include "ResourceManager.h"
+#include "Error.h"
 
-//enum NextScreen { LEVELEDITOR, NEWLEVEL };
 
 LevelEditorSelectorScreen::LevelEditorSelectorScreen(Window* window) :_window(window)
 {
 	_screenIndex = SCREEN_INDEX_LEVEL_EDITOR_SELECTOR;
+	nextScreen = SCREEN_INDEX_LEVEL_EDITOR;
+
+	std::ifstream file;
+	std::string fileName = "Levels/levelsFiles.txt";
+	file.open(fileName);
+	if (file.fail()) {
+		fatalError("failed to open " + fileName);
+	}
+	std::string tmp;
+	size_t count = 1;
+	while (std::getline(file, tmp)) {
+		_levelFiles.push_back(tmp);
+		_levelNames.push_back("Nivel " + std::to_string(count));
+		count++;
+	}
 }
 
 LevelEditorSelectorScreen::~LevelEditorSelectorScreen()
@@ -16,13 +33,39 @@ LevelEditorSelectorScreen::~LevelEditorSelectorScreen()
 void LevelEditorSelectorScreen::build()
 {
 	background = new Background("Textures/Fondos/ui_bg.png",_window);
-	backButton = new Button("Textures/UI/button_32x16.png");
+	backButton = new Button("Textures/UI/back.png", 
+		int(_window->getScreenWidth() / 2) - 64, int(_window->getScreenHeight() / 2) - 64, 32, 32);
+	newLevelButton = new ButtonText("Textures/UI/button_64x16.png", "Agregar nuevo nivel",
+		-int(_window->getScreenHeight() / 2) + 64, - 128, 256, 32); 
+
+	size_t max_r = floor(_window->getScreenHeight() * 0.6 / 64);
+	//size_t max_c = floor(_window->getScreenWidth() - 128 / 4);
+	size_t nrows = _levelFiles.size() > max_r ? max_r : _levelFiles.size();
+	size_t ncols = floor(nrows / 4) + 1;
+	size_t i = 0;
+	for (size_t r = 0; r < nrows; r++)
+	{
+		for (size_t c = 0; c < ncols; c++) {
+			//char buffer[256];
+			//sprintf_s(buffer, "Nivel %d", r*c + c + 1);
+			levelButtons.push_back(
+				new ButtonText("Textures/UI/button_32x16.png", _levelNames[i].c_str(), //buffer
+					-_window->getScreenWidth() / 2 + 64 + 20 * c, 72 * r - 20,
+					128, 64)
+			);
+			i++;
+		}
+	}
 }
 
 void LevelEditorSelectorScreen::destroy()
 {
 	backButton = nullptr;
-	background = nullptr;
+	background = nullptr; 
+	for (size_t i = 0; i < _levelFiles.size(); i++)
+	{
+		_levelFiles[i] = nullptr;
+	}
 }
 
 void LevelEditorSelectorScreen::onExit()
@@ -64,17 +107,15 @@ void LevelEditorSelectorScreen::draw()
 
 	background->draw(_spriteBatch);
 	backButton->draw(_spriteBatch);
-	char buffer[256];
-	sprintf_s(buffer, "Elige el nivel a editar");
-	Color color;
-	color.r = 255;
-	color.g = 0;
-	color.b = 0;
-	color.a = 255;
-	spriteFont->draw(_spriteBatch, buffer, glm::vec2(-100, 50), glm::vec2(1), 0.0f, color);
+	newLevelButton->draw(_spriteBatch); // TO DO: FIX SHOW IMG
+	for ( ButtonText* b : levelButtons) b->draw(_spriteBatch);
 
-	sprintf_s(buffer, "O agrega uno nuevo");
-	spriteFont->draw(_spriteBatch, buffer, glm::vec2(-200, 150), glm::vec2(1), 0.0f, color);
+	char buffer[256];
+	sprintf_s(buffer, "Elige el nivel a editar"); //23 / 2 = 12.5
+	Color color{ 255, 255, 255, 255 };
+	spriteFont->draw(_spriteBatch, buffer, glm::vec2(
+		_window->getScreenWidth() / 2 - 13 * 64, 200), glm::vec2(1), 0.0f, color);
+
 	_spriteBatch.end();
 	_spriteBatch.renderBatch();
 
@@ -115,13 +156,17 @@ void LevelEditorSelectorScreen::checkInput()
 			if (backButton->click(mouseCoords)) {
 				_currentState = ScreenState::CHANGE_PREVIOUS;
 			}
+			if (newLevelButton->click(mouseCoords)) {
+				nextScreen = SCREEN_INDEX_LEVEL_EDITOR_NEW;
+				_currentState = ScreenState::CHANGE_NEXT;
+			}
 		}
 	}
 }
 
 int LevelEditorSelectorScreen::getNextScreen() const
 {
-	return SCREEN_INDEX_LEVEL_EDITOR;
+	return nextScreen;
 }
 
 int LevelEditorSelectorScreen::getPreviousScreen() const

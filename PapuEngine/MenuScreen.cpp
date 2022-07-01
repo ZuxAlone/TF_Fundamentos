@@ -6,6 +6,7 @@
 MenuScreen::MenuScreen(Window* window):_window(window)
 {
 	_screenIndex = SCREEN_INDEX_MENU;
+	nextScreen = SCREEN_INDEX_GAMEPLAY;
 }
 
 MenuScreen::~MenuScreen()
@@ -15,9 +16,7 @@ MenuScreen::~MenuScreen()
 void MenuScreen::build()
 {
 	background = new Background("Textures/Fondos/splash.png",_window);
-	buttonLevel = new ButtonText("Textures/UI/button_64x16.png", "Editar Niveles");
-	buttonLevel->setSize(256, 64);
-	buttonLevel->setPosition(-128, -32);
+	buttonLevel = new ButtonText("Textures/UI/button_64x16.png", "Editar Niveles", -128, -32, 256, 64);
 }
 
 void MenuScreen::destroy()
@@ -126,7 +125,7 @@ void MenuScreen::checkInput()
 			glm::vec2 mouseCoords = _camera.convertScreenToWorl(_inputManager.getMouseCoords());
 			std::cout << "x" << mouseCoords.x << " | y " << mouseCoords.y << endl;
 			if (buttonLevel->click(mouseCoords)) {
-				nextScreen = NextScreen::LEVELEDITOR;
+				nextScreen = SCREEN_INDEX_LEVEL_EDITOR_SELECTOR;
 				_currentState = ScreenState::CHANGE_NEXT;
 			}
 		}
@@ -135,7 +134,7 @@ void MenuScreen::checkInput()
 
 int MenuScreen::getNextScreen() const
 {
-	return nextScreen == NextScreen::LEVELEDITOR ? SCREEN_INDEX_LEVEL_EDITOR_SELECTOR : SCREEN_INDEX_GAMEPLAY;
+	return nextScreen;
 }
 
 int MenuScreen::getPreviousScreen() const

@@ -168,6 +168,12 @@
     <ClCompile Include="ButtonText.cpp">
       <Filter>Source Files\Assets</Filter>
     </ClCompile>
+    <ClCompile Include="LevelEditorScreen.cpp">
+      <Filter>Source Files\Plataformer</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelEditorNewScreen.cpp">
+      <Filter>Source Files\Plataformer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h">
@@ -273,6 +279,12 @@
       <Filter>Header Files\Assets</Filter>
     </ClInclude>
     <ClInclude Include="LevelEditorSelectorScreen.h">
+      <Filter>Header Files\Plataformer</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelEditorScreen.h">
+      <Filter>Header Files\Plataformer</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelEditorNewScreen.h">
       <Filter>Header Files\Plataformer</Filter>
     </ClInclude>
   </ItemGroup>
