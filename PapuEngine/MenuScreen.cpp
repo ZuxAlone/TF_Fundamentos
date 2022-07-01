@@ -65,6 +65,7 @@ void MenuScreen::draw()
 
 	background->draw(_spriteBatch);
 	buttonLevel->draw(_spriteBatch);
+
 	char buffer[256];
 	sprintf_s(buffer, "Presiona espacio para continuar...");
 	Color color;
