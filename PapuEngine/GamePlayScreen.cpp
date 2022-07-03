@@ -10,11 +10,15 @@
 #include "ScreenIndices.h"
 
 
+
 GamePlayScreen::GamePlayScreen(Window* window):
 	_window(window)
 {
-	levelState = LevelState::PLAYING;
+	_currenLevel = 0;
 	_screenIndex = SCREEN_INDEX_GAMEPLAY;
+
+
+
 }
 
 
@@ -24,22 +28,39 @@ GamePlayScreen::~GamePlayScreen()
 
 
 void GamePlayScreen::build() {
-	_levels.push_back(new Level("Levels/level1.txt"));
+	levelState = LevelState::PLAYING;
+
+	_player = new Player();
+	switch (_currenLevel) {
+	case 0:
+		_levels.push_back(new Level("Levels/level1.txt"));
+	case 1:
+		_levels.push_back(new Level("Levels/level1.txt"));
+
+	case 2:
+		_levels.push_back(new Level("Levels/level1.txt"));
+	case 3:
+		_levels.push_back(new Level("Levels/level1.txt"));
+	}
 	backButton = new Button("Textures/UI/back.png",
 		int(_window->getScreenWidth() / 2) - 64, int(_window->getScreenHeight() / 2) - 64, 32, 32);
-	_player = new Player();
 	_key = new Key();
 	_door = new Door();
-	_currenLevel = 0;
+	_portal = new Portal();
 	std::string tilemapChars = "Textures/GamePlay/tilemap_characters.png";
+	std::string portal = "Textures/GamePlay/tilemap_scenary.png";
+
 	_player->init(2.0f, _levels[_currenLevel]->getPlayerPosition(), &_inputManager, &_camera, tilemapChars);
 	_player->setUvRect(0.0f, 0.25f, 1.0f, 0.25f);
 	_key->init(_levels[_currenLevel]->getKeyPosition(), tilemapChars);
 	_key->setUvRect(0.0f, 0.0f, 1.0f, 0.25f);
 	_door->init(_levels[_currenLevel]->getDoorPosition(), "Textures/GamePlay/tilemap_door.png");
 	_door->setUvRect(0.0f, 0.5f, 1.0f, 0.5f); // isClosed
+	_portal->init(_levels[_currenLevel]->getPortalPosition(), portal);
+	_portal->setUvRect(0.0f, 0.0f, 1.0f, 0.25f);
 	_humans.push_back(_player);
 	_spriteBatch.init();
+
 	_backgroundWin = new Background("Textures/Fondos/screen_win.png", _window);
 	_backgroundLost = new Background("Textures/Fondos/screen_game-over.png", _window);
 
@@ -172,6 +193,35 @@ void GamePlayScreen::updateAgents() {
 			_levels[_currenLevel]->setDot(doorPos);
 		}
 	}
+	if (_player->collideWithPortal(_portal) && _currenLevel < 1) {
+		
+			_currenLevel += 1;	
+			for (size_t i = 0; i < _humans.size(); i++)
+			{
+				delete _humans[i];
+				_humans[i] = _humans.back();
+				_humans.pop_back();
+			}
+			for (size_t i = 0; i < _zombies.size(); i++)
+			{
+				delete _zombies[i];
+				_zombies[i] = _zombies.back();
+				_zombies.pop_back();
+			}
+			delete _key;
+			delete _door;
+			delete _portal;
+			delete _backgroundWin;
+			delete _backgroundLost;
+			build();
+	}
+
+	if (_player->collideWithPortal(_portal) && _currenLevel == 1 ){
+		cout << "Hola" << endl;
+		levelState == LevelState::WON;
+	}
+	
+
 
 	for (size_t i = 0; i < _humans.size(); i++)
 	{
@@ -240,11 +290,9 @@ void GamePlayScreen::checkInput() {
 	}
 }
 
-int GamePlayScreen::getNextScreen() const {
+int GamePlayScreen::getNextScreen() const{ 
 	return SCREEN_INDEX_MENU;
-	/*return levelState == LOST ? SCREEN_INDEX_NO_INDEX
-		: levelState == WON ? SCREEN_INDEX_NO_INDEX
-		: SCREEN_INDEX_NO_INDEX;*/
+
 };
 
 int GamePlayScreen::getPreviousScreen() const {

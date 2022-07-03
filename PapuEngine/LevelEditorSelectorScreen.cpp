@@ -57,10 +57,10 @@ void LevelEditorSelectorScreen::destroy()
 {
 	backButton = nullptr;
 	background = nullptr; 
-	for (size_t i = _levelFiles.size()-1; i > 0; --i)
+	/*for (size_t i = _levelFiles.size() - 1; i > 0; --i)
 	{
 		_levelFiles[i] = nullptr;
-	}
+	}*/
 }
 
 void LevelEditorSelectorScreen::onExit()

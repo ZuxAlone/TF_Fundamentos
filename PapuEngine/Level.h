@@ -48,6 +48,9 @@ public:
 		return _doorPosition;
 	}
 
+	glm::vec2 getPortalPosition() const {
+		return _portalPosition;
+	}
 	void setDot(glm::vec2 pos) {
 		_levelData[pos.y / TILE_WIDTH][pos.x / TILE_WIDTH] = '.';
 	}

@@ -177,6 +177,9 @@
     <ClCompile Include="ScreenCredits.cpp">
       <Filter>Source Files\Plataformer</Filter>
     </ClCompile>
+    <ClCompile Include="Portal.cpp">
+      <Filter>Source Files\Zombie\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h">
@@ -292,6 +295,9 @@
     </ClInclude>
     <ClInclude Include="ScreenCredits.h">
       <Filter>Header Files\Plataformer</Filter>
+    </ClInclude>
+    <ClInclude Include="Portal.h">
+      <Filter>Header Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

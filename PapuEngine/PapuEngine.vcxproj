@@ -147,6 +147,7 @@
     <ClCompile Include="PapuEngine.cpp" />
     <ClCompile Include="picoPNG.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Portal.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="ScreenCredits.cpp" />
     <ClCompile Include="ScreenList.cpp" />
@@ -185,6 +186,7 @@
     <ClInclude Include="PapuEngine.h" />
     <ClInclude Include="picoPNG.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Portal.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="ScreenCredits.h" />
     <ClInclude Include="ScreenIndices.h" />

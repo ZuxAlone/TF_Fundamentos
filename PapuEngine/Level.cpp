@@ -79,6 +79,7 @@ void Level::parseLevel() {
 			case 'X':
 				_spriteBatch.draw(destRect, glm::vec4(0.0f, 0.0f, 1.0f, 0.25f),
 					tileTexture, 0.0f, color); //portal
+				_levelData[y][x] = '.';
 				_portalPosition.x = x * TILE_WIDTH;
 				_portalPosition.y = y * TILE_WIDTH;
 				break;

@@ -6,6 +6,7 @@
 #include "GLS_Program.h"
 #include "Window.h"
 #include "GLTexture.h"
+#include "Portal.h"
 #include "SpriteBacth.h"
 #include "SpriteFont.h"
 #include "Level.h"
@@ -38,6 +39,7 @@ private:
 	Player* _player;
 	Key* _key;
 	Door* _door;
+	Portal* _portal;
 	LevelState levelState;
 	int _currenLevel;
 	void updateAgents();
