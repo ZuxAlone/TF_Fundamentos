@@ -26,8 +26,6 @@ void App::addScreens() {
 		std::make_unique<ScreenCredits>(&_window);
 
 	_screenList->addScreen(
-		_screenCredits.get());
-	_screenList->addScreen(
 		_menuScreen.get());
 	_screenList->addScreen(
 		_gamePlayScreen.get());
@@ -37,12 +35,14 @@ void App::addScreens() {
 		_levelNewEditorScreen.get());
 	_screenList->addScreen(
 		_levelEditorScreen.get());
+	_screenList->addScreen(
+		_screenCredits.get());
 
-	/*_screenList->setScreen(
-		_menuScreen->getIndex());
-	*/
 	_screenList->setScreen(
-		_screenCredits->getIndex());
+		_menuScreen->getIndex());
+	
+	//_screenList->setScreen(
+	//	_screenCredits->getIndex());
 }
 
 void App::onExit() {

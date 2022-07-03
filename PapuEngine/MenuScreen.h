@@ -20,6 +20,7 @@ private:
 	Background* background;
 	Camera2D _camera;
 	ButtonText* buttonLevel;
+	ButtonText* buttonCredits;
 	InputManager _inputManager;
 	void checkInput(); 
 	SpriteFont* spriteFont;
