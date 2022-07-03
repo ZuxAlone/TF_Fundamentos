@@ -1,37 +1,36 @@
-#include "MenuScreen.h"
+#include "ScreenCredits.h"
 #include "ScreenIndices.h"
 #include <iostream>
 
 
-MenuScreen::MenuScreen(Window* window):_window(window)
+ScreenCredits::ScreenCredits(Window* window) :_window(window)
 {
-	_screenIndex = SCREEN_INDEX_MENU;
-	nextScreen = SCREEN_INDEX_GAMEPLAY;
+	_screenIndex = SCREEN_INDEX_CREDITS;
+	nextScreen = SCREEN_INDEX_MENU;
 }
 
-MenuScreen::~MenuScreen()
+ScreenCredits::~ScreenCredits()
 {
 }
 
-void MenuScreen::build()
+void ScreenCredits::build()
 {
-	background = new Background("Textures/Fondos/splash.png", _window);
-	buttonLevel = new ButtonText("Textures/UI/button_64x16.png", "Editar Niveles", -128, -32, 256, 64);
-	buttonCredits = new ButtonText("Textures/UI/button_64x16.png", "Ver Creditos", -128, 10, 256, 64);
+	background = new Background("Textures/Fondos/ui_bg.png", _window);
+	// -128, -32, 256,64
+	buttonLevel = new ButtonText("Textures/UI/button_64x16.png", "Creditos", -128, 128, 256, 64);
 }
 
-void MenuScreen::destroy()
+void ScreenCredits::destroy()
 {
-	buttonLevel = nullptr;
-	buttonCredits = nullptr;
+	//buttonLevel = nullptr;
 	background = nullptr;
 }
 
-void MenuScreen::onExit()
+void ScreenCredits::onExit()
 {
 }
 
-void MenuScreen::onEntry()
+void ScreenCredits::onEntry()
 {
 	_program.compileShaders("Shaders/colorShaderVert.txt",
 		"Shaders/colorShaderFrag.txt");
@@ -46,7 +45,7 @@ void MenuScreen::onEntry()
 	spriteFont = new SpriteFont("Fonts/VT323-Regular.ttf", 32);
 }
 
-void MenuScreen::draw()
+void ScreenCredits::draw()
 {
 	glClearDepth(1.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -67,9 +66,9 @@ void MenuScreen::draw()
 
 	background->draw(_spriteBatch);
 	buttonLevel->draw(_spriteBatch);
-	buttonCredits->draw(_spriteBatch);
+	
 	char buffer[256];
-	sprintf_s(buffer, "Presiona espacio para continuar...");
+	sprintf_s(buffer, "Dante Moreno\nRichard Maguina\nJunior Huerta\nCoralain Anto\nRealizado por:");
 	Color color;
 	color.r = 255;
 	color.g = 255;
@@ -85,7 +84,7 @@ void MenuScreen::draw()
 	_window->swapBuffer();
 }
 
-void MenuScreen::update()
+void ScreenCredits::update()
 {
 	draw();
 	_camera.update();
@@ -93,7 +92,7 @@ void MenuScreen::update()
 	checkInput();
 }
 
-void MenuScreen::checkInput()
+void ScreenCredits::checkInput()
 {
 	SDL_Event event;
 	while (SDL_PollEvent(&event))
@@ -128,23 +127,19 @@ void MenuScreen::checkInput()
 			glm::vec2 mouseCoords = _camera.convertScreenToWorl(_inputManager.getMouseCoords());
 			std::cout << "x" << mouseCoords.x << " | y " << mouseCoords.y << endl;
 			if (buttonLevel->click(mouseCoords)) {
-				nextScreen = SCREEN_INDEX_LEVEL_EDITOR_SELECTOR;
-				_currentState = ScreenState::CHANGE_NEXT;
-			}
-			if (buttonCredits->click(mouseCoords)) {
-				nextScreen = SCREEN_INDEX_CREDITS;
-				_currentState = ScreenState::CHANGE_NEXT;
+				nextScreen = SCREEN_INDEX_MENU;
+				_currentState = ScreenState::CHANGE_PREVIOUS;
 			}
 		}
 	}
 }
 
-int MenuScreen::getNextScreen() const
+int ScreenCredits::getNextScreen() const
 {
 	return nextScreen;
 }
 
-int MenuScreen::getPreviousScreen() const
+int ScreenCredits::getPreviousScreen() const
 {
 	return SCREEN_INDEX_NO_INDEX;
 }

@@ -7,6 +7,8 @@
 #include "LevelEditorNewScreen.h"
 #include "LevelEditorScreen.h"
 
+#include "ScreenCredits.h"
+
 class App : public Game
 {
 public:
@@ -26,5 +28,8 @@ private:
 		_levelNewEditorScreen = nullptr;
 	std::unique_ptr<LevelEditorScreen>
 		_levelEditorScreen = nullptr;
+	//creditos:
+	std::unique_ptr<ScreenCredits>
+		_screenCredits = nullptr;
 };
 
