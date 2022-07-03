@@ -32,7 +32,8 @@ private:
 	vector<Level*> _levels;
 	vector<Human*>  _humans;
 	vector<Zombie*> _zombies;
-	Background* background;
+	Background* _backgroundWin;
+	Background* _backgroundLost;
 	Button* backButton;
 	Player* _player;
 	Key* _key;
@@ -55,6 +56,8 @@ public:
 	virtual int getPreviousScreen() const override;
 
 	void checkInput();
+	void drawAgents();
+	void drawBackground();
 	void drawUI();
 };
 

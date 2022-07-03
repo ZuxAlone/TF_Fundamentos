@@ -43,18 +43,13 @@ void LevelEditorSelectorScreen::build()
 	size_t nrows = _levelFiles.size() > max_r ? max_r : _levelFiles.size();
 	size_t ncols = floor(nrows / 4) + 1;
 	size_t i = 0;
-	for (size_t r = 0; r < nrows; r++)
+	for (size_t i = 0; i < _levelFiles.size(); i++)
 	{
-		for (size_t c = 0; c < ncols; c++) {
-			//char buffer[256];
-			//sprintf_s(buffer, "Nivel %d", r*c + c + 1);
-			levelButtons.push_back(
-				new ButtonText("Textures/UI/button_32x16.png", _levelNames[i].c_str(), //buffer
-					-_window->getScreenWidth() / 2 + 64 + 20 * c, - 72 * r + 20,
-					128, 64)
-			);
-			i++;
-		}
+		levelButtons.push_back(
+			new ButtonText("Textures/UI/button_32x16.png", _levelNames[i].c_str(), //buffer
+				-_window->getScreenWidth() / 2 + 64 + 20 * 1, -72 * i + 20,
+				128, 64)
+		);
 	}
 }
 

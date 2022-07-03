@@ -19,11 +19,11 @@ void Zombie::update(const std::vector<std::string>& levelData,
 	collideWithLevel(levelData);
 
 	Human* closeHuman = getNearestHuman(humans);
-	/*if (closeHuman != nullptr) {
+	if (closeHuman != nullptr) {
 		glm::vec2 direction = glm::normalize(
 				closeHuman->getPosition() - _position);
 		_position += direction*_speed;
-	}*/
+	}
 }
 
 Human* Zombie::getNearestHuman(std::vector<Human*>& humans) {

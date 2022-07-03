@@ -13,7 +13,7 @@
 GamePlayScreen::GamePlayScreen(Window* window):
 	_window(window)
 {
-	levelState = LevelState::LOST;
+	levelState = LevelState::PLAYING;
 	_screenIndex = SCREEN_INDEX_GAMEPLAY;
 }
 
@@ -40,6 +40,8 @@ void GamePlayScreen::build() {
 	_door->setUvRect(0.0f, 0.5f, 1.0f, 0.5f); // isClosed
 	_humans.push_back(_player);
 	_spriteBatch.init();
+	_backgroundWin = new Background("Textures/Fondos/screen_win.png", _window);
+	_backgroundLost = new Background("Textures/Fondos/screen_game-over.png", _window);
 
 	std::mt19937 randomEngine(time(nullptr));
 	std::uniform_int_distribution<int>randPosX(
@@ -99,23 +101,11 @@ void GamePlayScreen::draw() {
 
 	_spriteBatch.begin();
 
-	_levels[_currenLevel]->draw();
-
-	if (!_player->hasKey()) _key->draw(_spriteBatch);
-	_door->draw(_spriteBatch);//if (!_door->isOpen()) 
-
-	for (size_t i = 0; i < _humans.size(); i++)
-	{
-		_humans[i]->draw(_spriteBatch);
-
+	if (levelState == LevelState::PLAYING) {
+		drawAgents();
+		drawUI();
 	}
-
-	for (size_t i = 0; i < _zombies.size(); i++)
-	{
-		_zombies[i]->draw(_spriteBatch);
-	}
-
-	drawUI();
+	else drawBackground();
 
 	_spriteBatch.end();
 	_spriteBatch.renderBatch();
@@ -132,8 +122,33 @@ void GamePlayScreen::drawUI() {
 	Color color;
 	color.set(255, 252, 161, 255);
 	_spriteFont->draw(_spriteBatch, buffer, _camera.getPosition() + glm::vec2(- _window->getScreenWidth() / 2.1, _window->getScreenHeight() / 2.5), glm::vec2(1), 0.0f, color);
-	backButton->setPosition( _camera.getPosition().x + _window->getScreenWidth() / 2 - 64, - _camera.getPosition().y - _window->getScreenHeight() / 2 + 64);
-	backButton->draw(_spriteBatch);
+	/*backButton->setPosition( _camera.getPosition().x + _window->getScreenWidth() / 2 - 64, - _camera.getPosition().y - _window->getScreenHeight() / 2 + 64);
+	backButton->draw(_spriteBatch);*/
+}
+
+void GamePlayScreen::drawAgents() {
+	_levels[_currenLevel]->draw();
+
+	if (!_player->hasKey()) _key->draw(_spriteBatch);
+	_door->draw(_spriteBatch);//if (!_door->isOpen()) 
+
+	for (size_t i = 0; i < _humans.size(); i++)
+	{
+		_humans[i]->draw(_spriteBatch);
+
+	}
+
+	for (size_t i = 0; i < _zombies.size(); i++)
+	{
+		_zombies[i]->draw(_spriteBatch);
+	}
+}
+
+void GamePlayScreen::drawBackground() {
+	if (levelState == LevelState::WON)
+		_backgroundWin->draw(_spriteBatch);
+	if (levelState == LevelState::LOST)
+		_backgroundLost->draw(_spriteBatch);
 }
 
 void GamePlayScreen::update() {
@@ -142,7 +157,8 @@ void GamePlayScreen::update() {
 	_camera.update();
 	updateAgents();
 	_inputManager.update();
-	_camera.setPosition(_player->getPosition());
+	if (levelState == LevelState::PLAYING) _camera.setPosition(_player->getPosition());
+	else _camera.setPosition(glm::vec2(0.0f, 0.0f));
 }
 
 void GamePlayScreen::updateAgents() {
@@ -169,17 +185,19 @@ void GamePlayScreen::updateAgents() {
 		_zombies[i]->update(_levels[_currenLevel]->getLevelData(),
 			_humans, _zombies);
 
+		if (_zombies[i]->collideWithAgent(_humans[0])) levelState = LevelState::LOST;
 
 		for (size_t j = 1; j < _humans.size(); j++)
 		{
-			/*if (_zombies[i]->collideWithAgent(_humans[j])) {
+			if (_zombies[i]->collideWithAgent(_humans[j])) {
 				_zombies.push_back(new Zombie);
-				_zombies.back()->init(1.3f, _humans[j]->getPosition());
+				_zombies.back()->init(1.3f, _humans[j]->getPosition(), "Textures/GamePlay/tilemap_characters.png");
+				_zombies.back()->setUvRect(0.0f, 0.75f, 1.0f, 0.25f);
 
 				delete _humans[j];
 				_humans[j] = _humans.back();
 				_humans.pop_back();
-			}*/
+			}
 		}
 	}
 }
@@ -212,13 +230,13 @@ void GamePlayScreen::checkInput() {
 			break;
 		}
 
-		if (_inputManager.isKeyPressed(SDL_BUTTON_LEFT)) {
-			//presione click;
-			glm::vec2 mouseCoords = _camera.convertScreenToWorl(_inputManager.getMouseCoords());
-			if (backButton->click(mouseCoords)) {
-				_currentState = ScreenState::CHANGE_NEXT;
-			}
-		}
+		//if (_inputManager.isKeyPressed(SDL_BUTTON_LEFT)) {
+		//	//presione click;
+		//	glm::vec2 mouseCoords = _camera.convertScreenToWorl(_inputManager.getMouseCoords());
+		//	if (backButton->click(mouseCoords)) {
+		//		_currentState = ScreenState::CHANGE_NEXT;
+		//	}
+		//}
 	}
 }
 
