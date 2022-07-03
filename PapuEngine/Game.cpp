@@ -10,12 +10,12 @@ Game::Game()
 }
 
 bool Game::init() {
-	Papu::init();
+	Papu::init(); // inicia SDL / GL
 	SDL_GL_SetAttribute(
 			SDL_GL_ACCELERATED_VISUAL, 1);
-	initSystems();
-	onInit();
-	addScreens();
+	initSystems(); // Crea Window de 1280 x 720
+	onInit(); // de App.cpp, vacío
+	addScreens(); // de App.cpp
 	_currentScreen = _screenList->getCurrent();
 	_currentScreen->onEntry();
 	_currentScreen->setRunning();

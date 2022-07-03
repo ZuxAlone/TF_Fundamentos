@@ -9,7 +9,7 @@
 #include "InputManager.h"
 #include "ButtonText.h"
 
-class MenuScreen : public IGameScreen
+class ScreenCredits : public IGameScreen
 {
 protected:
 	int _screenIndex = 0;
@@ -21,12 +21,12 @@ private:
 	Camera2D _camera;
 	ButtonText* buttonLevel;
 	InputManager _inputManager;
-	void checkInput(); 
+	void checkInput();
 	SpriteFont* spriteFont;
 	int nextScreen;
 public:
-	MenuScreen(Window* window);
-	~MenuScreen();
+	ScreenCredits(Window* window);
+	~ScreenCredits();
 	virtual void build() override;
 	virtual void destroy() override;
 	virtual void onExit() override;
@@ -37,3 +37,4 @@ public:
 	virtual int getPreviousScreen() const override;
 
 };
+
