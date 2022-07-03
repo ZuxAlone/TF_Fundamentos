@@ -15,6 +15,7 @@
 #include "Background.h"
 #include "Key.h"
 #include "Door.h"
+#include "Button.h"
 
 enum LevelState { WON, LOST, FINISHED, PLAYING, PAUSE };
 
@@ -32,6 +33,7 @@ private:
 	vector<Human*>  _humans;
 	vector<Zombie*> _zombies;
 	Background* background;
+	Button* backButton;
 	Player* _player;
 	Key* _key;
 	Door* _door;

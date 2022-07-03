@@ -16,9 +16,11 @@ GLTexture TextureCache::getTexture(std::string texturePath) {
 		//std::pair<std::string, GLTexture> 
 			//	newPair(texturePath, texture);
 		_textureMap[texturePath] = texture;
-		//_textureMap.insert(newPair);
+		//_textureMap.insert({ texturePath , texture });
+		cout << "nueva textura:\t" << texturePath << "\t" << texture.id << endl;
 		return texture;
 	}
+	cout << "image found:\t" << texturePath << "\t" << mit->second.id << endl;
 	return mit->second;
 }
 

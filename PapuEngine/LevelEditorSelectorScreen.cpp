@@ -50,7 +50,7 @@ void LevelEditorSelectorScreen::build()
 			//sprintf_s(buffer, "Nivel %d", r*c + c + 1);
 			levelButtons.push_back(
 				new ButtonText("Textures/UI/button_32x16.png", _levelNames[i].c_str(), //buffer
-					-_window->getScreenWidth() / 2 + 64 + 20 * c, 72 * r - 20,
+					-_window->getScreenWidth() / 2 + 64 + 20 * c, - 72 * r + 20,
 					128, 64)
 			);
 			i++;
@@ -62,7 +62,7 @@ void LevelEditorSelectorScreen::destroy()
 {
 	backButton = nullptr;
 	background = nullptr; 
-	for (size_t i = 0; i < _levelFiles.size(); i++)
+	for (size_t i = _levelFiles.size()-1; i > 0; --i)
 	{
 		_levelFiles[i] = nullptr;
 	}
@@ -154,7 +154,9 @@ void LevelEditorSelectorScreen::checkInput()
 			//presione click;
 			glm::vec2 mouseCoords = _camera.convertScreenToWorl(inputManager.getMouseCoords());
 			if (backButton->click(mouseCoords)) {
-				_currentState = ScreenState::CHANGE_PREVIOUS;
+				//_currentState = ScreenState::CHANGE_PREVIOUS;
+				nextScreen = SCREEN_INDEX_MENU;
+				_currentState = ScreenState::CHANGE_NEXT;
 			}
 			if (newLevelButton->click(mouseCoords)) {
 				nextScreen = SCREEN_INDEX_LEVEL_EDITOR_NEW;

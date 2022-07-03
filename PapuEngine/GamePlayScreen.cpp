@@ -25,6 +25,8 @@ GamePlayScreen::~GamePlayScreen()
 
 void GamePlayScreen::build() {
 	_levels.push_back(new Level("Levels/level1.txt"));
+	backButton = new Button("Textures/UI/back.png",
+		int(_window->getScreenWidth() / 2) - 64, int(_window->getScreenHeight() / 2) - 64, 32, 32);
 	_player = new Player();
 	_key = new Key();
 	_door = new Door();
@@ -65,7 +67,6 @@ void GamePlayScreen::build() {
 	}
 }
 void GamePlayScreen::destroy() {
-
 }
 void GamePlayScreen::onExit() {
 }
@@ -131,6 +132,8 @@ void GamePlayScreen::drawUI() {
 	Color color;
 	color.set(255, 252, 161, 255);
 	_spriteFont->draw(_spriteBatch, buffer, _camera.getPosition() + glm::vec2(- _window->getScreenWidth() / 2.1, _window->getScreenHeight() / 2.5), glm::vec2(1), 0.0f, color);
+	backButton->setPosition( _camera.getPosition().x + _window->getScreenWidth() / 2 - 64, - _camera.getPosition().y - _window->getScreenHeight() / 2 + 64);
+	backButton->draw(_spriteBatch);
 }
 
 void GamePlayScreen::update() {
@@ -208,13 +211,22 @@ void GamePlayScreen::checkInput() {
 			_inputManager.releaseKey(event.button.button);
 			break;
 		}
+
+		if (_inputManager.isKeyPressed(SDL_BUTTON_LEFT)) {
+			//presione click;
+			glm::vec2 mouseCoords = _camera.convertScreenToWorl(_inputManager.getMouseCoords());
+			if (backButton->click(mouseCoords)) {
+				_currentState = ScreenState::CHANGE_NEXT;
+			}
+		}
 	}
 }
 
 int GamePlayScreen::getNextScreen() const {
-	return levelState == LOST ? SCREEN_INDEX_NO_INDEX
+	return SCREEN_INDEX_MENU;
+	/*return levelState == LOST ? SCREEN_INDEX_NO_INDEX
 		: levelState == WON ? SCREEN_INDEX_NO_INDEX
-		: SCREEN_INDEX_NO_INDEX;
+		: SCREEN_INDEX_NO_INDEX;*/
 };
 
 int GamePlayScreen::getPreviousScreen() const {
