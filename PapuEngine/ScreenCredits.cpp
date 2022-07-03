@@ -68,7 +68,7 @@ void ScreenCredits::draw()
 	buttonLevel->draw(_spriteBatch);
 	
 	char buffer[256];
-	sprintf_s(buffer, "Coralain Anto\nRichard Maguina\nJunior Huerta\nDante Moreno\nRealizado por:");
+	sprintf_s(buffer, "Dante Moreno\nRichard Maguina\nJunior Huerta\nCoralain Anto\nRealizado por:");
 	Color color;
 	color.r = 255;
 	color.g = 255;
@@ -128,7 +128,7 @@ void ScreenCredits::checkInput()
 			std::cout << "x" << mouseCoords.x << " | y " << mouseCoords.y << endl;
 			if (buttonLevel->click(mouseCoords)) {
 				nextScreen = SCREEN_INDEX_MENU;
-				_currentState = ScreenState::CHANGE_NEXT;
+				_currentState = ScreenState::CHANGE_PREVIOUS;
 			}
 		}
 	}
