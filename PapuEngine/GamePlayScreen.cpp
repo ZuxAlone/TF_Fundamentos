@@ -16,9 +16,7 @@ GamePlayScreen::GamePlayScreen(Window* window):
 {
 	_currenLevel = 0;
 	_screenIndex = SCREEN_INDEX_GAMEPLAY;
-
-
-
+	levelState = LevelState::PLAYING;
 }
 
 
@@ -28,15 +26,12 @@ GamePlayScreen::~GamePlayScreen()
 
 
 void GamePlayScreen::build() {
-	levelState = LevelState::PLAYING;
-
 	_player = new Player();
 	switch (_currenLevel) {
 	case 0:
 		_levels.push_back(new Level("Levels/level1.txt"));
 	case 1:
 		_levels.push_back(new Level("Levels/level1.txt"));
-
 	case 2:
 		_levels.push_back(new Level("Levels/level1.txt"));
 	case 3:
@@ -50,7 +45,7 @@ void GamePlayScreen::build() {
 	std::string tilemapChars = "Textures/GamePlay/tilemap_characters.png";
 	std::string portal = "Textures/GamePlay/tilemap_scenary.png";
 
-	_player->init(2.0f, _levels[_currenLevel]->getPlayerPosition(), &_inputManager, &_camera, tilemapChars);
+	_player->init(0.5f, _levels[_currenLevel]->getPlayerPosition(), &_inputManager, &_camera, tilemapChars);
 	_player->setUvRect(0.0f, 0.25f, 1.0f, 0.25f);
 	_key->init(_levels[_currenLevel]->getKeyPosition(), tilemapChars);
 	_key->setUvRect(0.0f, 0.0f, 1.0f, 0.25f);
@@ -75,7 +70,7 @@ void GamePlayScreen::build() {
 		_humans.push_back(new Human());
 		glm::vec2 pos(randPosX(randomEngine) * TILE_WIDTH,
 			randPosY(randomEngine) * TILE_WIDTH);
-		_humans.back()->init(1.0f, pos, tilemapChars);
+		_humans.back()->init(0.4f, pos, tilemapChars);
 		_humans.back()->setUvRect(0.0f, 0.5f, 1.0f, 0.25f);
 	}
 
@@ -85,7 +80,7 @@ void GamePlayScreen::build() {
 	for (size_t i = 0; i < zombiePosition.size(); i++)
 	{
 		_zombies.push_back(new Zombie());
-		_zombies.back()->init(1.3f, zombiePosition[i], tilemapChars);
+		_zombies.back()->init(0.4f, zombiePosition[i], tilemapChars);
 		_zombies.back()->setUvRect(0.0f, 0.75f, 1.0f, 0.25f);
 	}
 }
@@ -193,7 +188,7 @@ void GamePlayScreen::updateAgents() {
 			_levels[_currenLevel]->setDot(doorPos);
 		}
 	}
-	if (_player->collideWithPortal(_portal) && _currenLevel < 1) {
+	if (_player->collideWithPortal(_portal) && _currenLevel < 3) {
 		
 			_currenLevel += 1;	
 			for (size_t i = 0; i < _humans.size(); i++)
@@ -216,12 +211,8 @@ void GamePlayScreen::updateAgents() {
 			build();
 	}
 
-	if (_player->collideWithPortal(_portal) && _currenLevel == 1 ){
-		cout << "Hola" << endl;
-		levelState == LevelState::WON;
-	}
+	if (_player->collideWithPortal(_portal) && _currenLevel == 3 ) levelState = LevelState::WON;
 	
-
 
 	for (size_t i = 0; i < _humans.size(); i++)
 	{
@@ -241,7 +232,7 @@ void GamePlayScreen::updateAgents() {
 		{
 			if (_zombies[i]->collideWithAgent(_humans[j])) {
 				_zombies.push_back(new Zombie);
-				_zombies.back()->init(1.3f, _humans[j]->getPosition(), "Textures/GamePlay/tilemap_characters.png");
+				_zombies.back()->init(0.4f, _humans[j]->getPosition(), "Textures/GamePlay/tilemap_characters.png");
 				_zombies.back()->setUvRect(0.0f, 0.75f, 1.0f, 0.25f);
 
 				delete _humans[j];

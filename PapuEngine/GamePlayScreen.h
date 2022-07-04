@@ -18,7 +18,7 @@
 #include "Door.h"
 #include "Button.h"
 
-enum LevelState { WON, LOST, FINISHED, PLAYING, PAUSE };
+enum class LevelState { WON, LOST, FINISHED, PLAYING, PAUSE };
 
 class GamePlayScreen : public IGameScreen
 {
