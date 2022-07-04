@@ -31,11 +31,11 @@ void GamePlayScreen::build() {
 	case 0:
 		_levels.push_back(new Level("Levels/level1.txt"));
 	case 1:
-		_levels.push_back(new Level("Levels/level1.txt"));
+		_levels.push_back(new Level("Levels/level2.txt"));
 	case 2:
-		_levels.push_back(new Level("Levels/level1.txt"));
+		_levels.push_back(new Level("Levels/level3.txt"));
 	case 3:
-		_levels.push_back(new Level("Levels/level1.txt"));
+		_levels.push_back(new Level("Levels/level4.txt"));
 	}
 	backButton = new Button("Textures/UI/back.png",
 		int(_window->getScreenWidth() / 2) - 64, int(_window->getScreenHeight() / 2) - 64, 32, 32);
