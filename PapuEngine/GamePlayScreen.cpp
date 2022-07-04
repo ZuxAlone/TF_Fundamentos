@@ -45,7 +45,7 @@ void GamePlayScreen::build() {
 	std::string tilemapChars = "Textures/GamePlay/tilemap_characters.png";
 	std::string portal = "Textures/GamePlay/tilemap_scenary.png";
 
-	_player->init(0.5f, _levels[_currenLevel]->getPlayerPosition(), &_inputManager, &_camera, tilemapChars);
+	_player->init(2.0f, _levels[_currenLevel]->getPlayerPosition(), &_inputManager, &_camera, tilemapChars);
 	_player->setUvRect(0.0f, 0.25f, 1.0f, 0.25f);
 	_key->init(_levels[_currenLevel]->getKeyPosition(), tilemapChars);
 	_key->setUvRect(0.0f, 0.0f, 1.0f, 0.25f);
