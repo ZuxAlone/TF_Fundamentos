@@ -16,13 +16,13 @@ MenuScreen::~MenuScreen()
 void MenuScreen::build()
 {
 	background = new Background("Textures/Fondos/splash.png", _window);
-	buttonLevel = new ButtonText("Textures/UI/button_64x16.png", "Editar Niveles", -128, -32, 256, 64);
+	//buttonLevel = new ButtonText("Textures/UI/button_64x16.png", "Editar Niveles", -128, -32, 256, 64);
 	buttonCredits = new ButtonText("Textures/UI/button_64x16.png", "Ver Creditos", -128, 10, 256, 64);
 }
 
 void MenuScreen::destroy()
 {
-	buttonLevel = nullptr;
+	//buttonLevel = nullptr;
 	buttonCredits = nullptr;
 	background = nullptr;
 }
@@ -66,7 +66,7 @@ void MenuScreen::draw()
 	_spriteBatch.begin();
 
 	background->draw(_spriteBatch);
-	buttonLevel->draw(_spriteBatch);
+	//buttonLevel->draw(_spriteBatch);
 	buttonCredits->draw(_spriteBatch);
 
 	char buffer[256];
@@ -128,10 +128,10 @@ void MenuScreen::checkInput()
 			//presione click;
 			glm::vec2 mouseCoords = _camera.convertScreenToWorl(_inputManager.getMouseCoords());
 			std::cout << "x" << mouseCoords.x << " | y " << mouseCoords.y << endl;
-			if (buttonLevel->click(mouseCoords)) {
+			/*if (buttonLevel->click(mouseCoords)) {
 				nextScreen = SCREEN_INDEX_LEVEL_EDITOR_SELECTOR;
 				_currentState = ScreenState::CHANGE_NEXT;
-			}
+			}*/
 			if (buttonCredits->click(mouseCoords)) {
 				nextScreen = SCREEN_INDEX_CREDITS;
 				_currentState = ScreenState::CHANGE_NEXT;
