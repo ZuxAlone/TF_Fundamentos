@@ -226,7 +226,7 @@ void GamePlayScreen::updateAgents() {
 		_zombies[i]->update(_levels[_currenLevel]->getLevelData(),
 			_humans, _zombies);
 
-		if (_zombies[i]->collideWithAgent(_humans[0])) levelState = LevelState::LOST;
+		if (_zombies[i]->collideWithAgent(_player)) levelState = LevelState::LOST;
 
 		for (size_t j = 1; j < _humans.size(); j++)
 		{
